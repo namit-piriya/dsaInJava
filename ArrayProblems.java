@@ -50,4 +50,17 @@ public class ArrayProblems {
         return ans;
     }
 
+    // https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+    public static int maxProfit(int[] prices) {
+        int min = Integer.MAX_VALUE;
+        int ans = 0;
+        for(int price : prices){
+            if(min > price ){
+                min = price;
+            }
+            ans = Math.max(ans,price-min);
+        }
+        return ans;
+    }
+
 }
