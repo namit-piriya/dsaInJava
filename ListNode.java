@@ -1,4 +1,6 @@
- public class ListNode {
+import java.util.List;
+
+public class ListNode {
       int val;
       ListNode next;
       ListNode() {}
@@ -22,6 +24,25 @@
          return previous;
      }
 
+     ListNode helper(ListNode node, ListNode ans){
+          if(node == null){
+              return null;
+          }
+          ListNode next = node.next;
+          if(next == null){
+              ans = node;
+              return node;
+          }
+          ListNode ptr = helper(next,ans);
+          ptr.next = node;
+          return node;
+     }
+
+     public ListNode reverseListRecursive(ListNode head){
+          ListNode ans = new ListNode();
+          this.helper(head,ans);
+          return ans;
+     }
 
   }
 
