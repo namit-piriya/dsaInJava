@@ -78,7 +78,7 @@ public class ArrayProblems {
     }
 
     //https://leetcode.com/problems/product-of-array-except-self/
-    public int[] productExceptSelf(int[] nums) {
+    public static int[] productExceptSelf(int[] nums) {
         int [] ans = new int[nums.length];
         ans[0] = 1;
         for (int i = 1; i < nums.length; i++) {
@@ -91,5 +91,24 @@ public class ArrayProblems {
         }
         return ans;
     }
+
+    //https://leetcode.com/problems/maximum-subarray/
+    public static int maxSubArray(int[] nums) {
+        // corner case [-2,1]
+        // corner case [-2]
+        int maxSum = Integer.MIN_VALUE;
+        int currSum = 0;
+        for (int num : nums) {
+            currSum += num;
+            if (num > currSum) {
+                currSum = num;
+            }
+            if (currSum > maxSum) {
+                maxSum = currSum;
+            }
+        }
+        return maxSum;
+    }
+
 
 }
