@@ -79,12 +79,12 @@ public class ArrayProblems {
 
     //https://leetcode.com/problems/product-of-array-except-self/
     public static int[] productExceptSelf(int[] nums) {
-        int [] ans = new int[nums.length];
+        int[] ans = new int[nums.length];
         ans[0] = 1;
         for (int i = 1; i < nums.length; i++) {
-            ans[i] = nums[i-1] * ans[i-1];
+            ans[i] = nums[i - 1] * ans[i - 1];
         }
-        int r = nums[nums.length-1];
+        int r = nums[nums.length - 1];
         for (int i = nums.length - 2; i >= 0; i--) {
             ans[i] = r * ans[i];
             r = r * nums[i];
@@ -100,6 +100,9 @@ public class ArrayProblems {
         int currSum = 0;
         for (int num : nums) {
             currSum += num;
+            // handles the negative number case
+            //see is the num is greater than the sum of previous sum and the number
+            // which means we have something negative in bw
             if (num > currSum) {
                 currSum = num;
             }
@@ -110,5 +113,23 @@ public class ArrayProblems {
         return maxSum;
     }
 
+
+    public static int removeDuplicates(int[] nums) {
+        int curr = 2;
+        for (int i = 2; i < nums.length; i++) {
+            if(nums[i] != nums[curr-2]){ // curr is the array index without duplicates more than 2
+                nums[curr] = nums[i];
+                curr++;
+            }
+        }
+        return curr;
+    }
+
+    public static void main(String[] args) {
+        int[] nums = {0, 0, 1, 1, 1, 1, 2, 3, 3};
+        int n = removeDuplicates(nums);
+        System.out.println("reflected size is " + n);
+        System.out.println(Arrays.toString(nums));
+    }
 
 }
