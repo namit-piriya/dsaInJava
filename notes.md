@@ -392,3 +392,98 @@ public int search(int[] nums, int target) {
 }
 
 ```
+
+
+# Revision Notes: Three Sum Problem
+
+## Edge Cases to Handle:
+1. **Empty Input**: Handle an empty input array (`nums`).
+2. **Duplicate Elements**: Account for cases with duplicate elements in the input.
+3. **No Triplets Summing to Zero**: Handle scenarios where there are no valid triplets summing to zero.
+4. **Negative and Positive Numbers**: Be prepared for both negative and positive numbers in the array.
+
+## Approach with Example and Intuition:
+
+### Approach: Two-Pointer Technique
+
+1. **Sort the Array**: Begin by sorting the given array `nums`. This simplifies the problem by grouping duplicate values together.
+
+2. **Iterate through the Array**: Use a loop to iterate through the sorted array. For each element at index `i`, treat the problem as finding a pair with a target sum of `-nums[i]` in the subarray starting from index `i + 1`.
+
+3. **Use Two Pointers**: Initialize two pointers, `left` and `right`, initially pointing to elements just after `nums[i]` and the last element in the array, respectively.
+
+4. **Check the Sum**: Check if `nums[i] + nums[left] + nums[right]` equals zero.
+
+5. **Move Pointers**: Adjust the pointers based on the sum:
+    - If the sum is zero, add the triplet `[nums[i], nums[left], nums[right]]` to the result and move both `left` and `right` pointers.
+    - If the sum is less than zero, move the `left` pointer to the right (increment it).
+    - If the sum is greater than zero, move the `right` pointer to the left (decrement it).
+
+6. **Avoid Duplicates**: Skip identical elements when moving the pointers to avoid duplicate triplets.
+
+7. **Continue Looping**: Repeat steps 4-6 while the `left` pointer is less than the `right` pointer.
+
+8. **Move to the Next Element**: After processing all possible triplets with `nums[i]`, move to the next element in the loop.
+
+9. **Return the Result**: Finally, return the list of unique triplets that sum up to zero.
+
+```
+        Arrays.sort(nums);
+        for (int i = 0; i < n - 2; i++) {
+            if (i == 0 || (i > 0 && nums[i] != nums[i - 1])) {
+                int left = i + 1, right = n - 1, target = -nums[i];
+                while (left < right) {
+                    if (nums[left] + nums[right] == target) {
+                        result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                        while (left < right && nums[left] == nums[left + 1]) left++;
+                        while (left < right && nums[right] == nums[right - 1]) right--;
+                        left++;
+                        right--;
+                    } else if (nums[left] + nums[right] < target) {
+                        left++;
+                    } else {
+                        right--;
+                    }
+                }
+            }
+        }
+
+        return result;```
+
+# Revision Notes: Merge Sorted Arrays with O(m + n) Time Complexity
+
+## Problem Statement:
+
+You are given two integer arrays `nums1` and `nums2`, sorted in non-decreasing order, and two integers `m` and `n`, representing the number of elements in `nums1` and `nums2`, respectively. The task is to merge `nums2` into `nums1` such that the final sorted array is stored inside `nums1`.
+
+## Edge Cases to Handle:
+
+1. **Empty Arrays**: Ensure correct behavior when one or both input arrays (`nums1` and `nums2`) are empty.
+2. **Arrays with All Zeroes**: Handle scenarios where either `nums1` or `nums2` consists only of zeroes.
+3. **Arrays with All Elements in One Array**: Consider cases when all elements are present in one of the arrays, and the other array is empty.
+4. **General Case**: Merging two sorted arrays with non-zero elements.
+
+## Approach with O(m + n) Time Complexity:
+
+1. Initialize pointers `p1`, `p2`, and `p`:
+   - `p1`: Points to the last non-zero element in `nums1` (index `m - 1`).
+   - `p2`: Points to the last element in `nums2` (index `n - 1`).
+   - `p`: Points to the last position in `nums1` (index `m + n - 1`) where we will insert elements.
+
+2. While `p1` and `p2` are within bounds (greater than or equal to 0):
+   - Compare `nums1[p1]` and `nums2[p2]`.
+   - If `nums1[p1]` is greater, set `nums1[p]` to `nums1[p1]` and decrement both `p1` and `p`.
+   - Otherwise, set `nums1[p]` to `nums2[p2]` and decrement `p2` and `p`.
+
+3. If `p2` is still within bounds (greater than or equal to 0), copy the remaining elements from `nums2` to `nums1` in the positions from 0 to `p2`.
+
+4. This approach doesn't involve sorting and runs in O(m + n) time because it goes through each element of both arrays exactly once.
+
+## Java Code:
+
+```java
+class MergeSortedArrays {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        // Implementation code here
+    }
+}
