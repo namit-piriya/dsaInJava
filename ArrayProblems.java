@@ -125,6 +125,38 @@ public class ArrayProblems {
         return curr;
     }
 
+    public static void reverse(int[] nums, int s , int e){
+        while(s<e){
+            int t = s;
+            s = e;
+            e = t;
+            s++;
+            e--;
+        }
+    }
+
+    public static void rotate(int[] nums, int k) {
+        k%=(nums.length-1);
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k, nums.length-1);
+    }
+
+//    You can sell the stock every day if the price is higher
+//    anyways you can only hold one share
+//    1,3,5
+//    1,3 and 3,5 is same as 1,5
+    public int maxProfit2(int[] prices) {
+        int maxProfit = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] > prices[i - 1]) {
+                maxProfit += prices[i] - prices[i - 1];
+            }
+        }
+        return maxProfit;
+    }
+
+
     public static void main(String[] args) {
         int[] nums = {0, 0, 1, 1, 1, 1, 2, 3, 3};
         int n = removeDuplicates(nums);
