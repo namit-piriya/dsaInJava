@@ -21,7 +21,7 @@ public class TreeProblems {
         }
 
         for (int i = 0; i < pTraversal.size(); i++) {
-            if(!pTraversal.get(i).equals(qTraversal.get(i))){
+            if (!pTraversal.get(i).equals(qTraversal.get(i))) {
                 return false;
             }
         }
@@ -29,20 +29,22 @@ public class TreeProblems {
     }
 
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        if(p== null && q == null){
+        if (p == null && q == null) {
             return true;
         }
 
-        if(p == null || q == null || p.val != q.val){
+        if (p == null || q == null || p.val != q.val) {
             return false;
         }
 
-        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
     }
 
 
     public void flatten(TreeNode root) {
-        if(root == null){return;}
+        if (root == null) {
+            return;
+        }
         var leftTree = root.left;
         var rightTree = root.right;
         flatten(leftTree);
@@ -50,10 +52,27 @@ public class TreeProblems {
         root.left = null;
         root.right = leftTree;
         var curr = root;
-        while(curr.right != null){
+        while (curr.right != null) {
             curr = curr.right;
         }
         curr.right = rightTree;
     }
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) return null;
+        if (root.val == p.val || root.val == q.val) {
+            return root;
+        }
+        var left = lowestCommonAncestor(root.left, p, q);
+        var right = lowestCommonAncestor(root.right, p, q);
+
+        if (left == null) {
+            return right;
+        } else if (right == null) {
+            return left;
+        } else return root;
+
+    }
+
 
 }
