@@ -156,6 +156,26 @@ public class ArrayProblems {
         return maxProfit;
     }
 
+//    pascal triangle
+    public List<List<Integer>> generate(int numRows) {
+        List <List<Integer>> ans = new ArrayList<>();
+        if(numRows <= 0)return ans;
+        var list = new Integer[]{1};
+        ans.add(Arrays.asList(list));
+        for (int i = 1; i < numRows; i++) {
+            var previousRow = ans.get(i-1);
+            var currentRow = new ArrayList<Integer>();
+            currentRow.add(1);
+            for (int j = 1; j <previousRow.size(); j++) {
+                int sum = previousRow.get(j) + previousRow.get(j-1);
+                currentRow.add(sum);
+            }
+            currentRow.add(1);
+            ans.add(currentRow);
+        }
+        return ans;
+    }
+
 
     public static void main(String[] args) {
         int[] nums = {0, 0, 1, 1, 1, 1, 2, 3, 3};
