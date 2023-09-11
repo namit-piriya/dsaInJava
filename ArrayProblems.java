@@ -184,7 +184,7 @@ public class ArrayProblems {
         System.out.println(Arrays.toString(nums));
     }
 
-//    https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to
+    //    https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to
     public List<List<Integer>> groupThePeople(int[] groupSizes) {
         Map<Integer, List<Integer>> m = new HashMap<>();
         for (int i = 0; i < groupSizes.length; i++) {
@@ -216,7 +216,20 @@ public class ArrayProblems {
     }
 
     public int[] twoSum(int[] numbers, int target) {
-
+        int i = 0;
+        int j = numbers.length - 1;
+        while (i < j) {
+            var currSum = numbers[i] + numbers[j];
+            if (currSum == target) {
+                return new int[]{i + 1, j + 1};
+            }
+            if (currSum > target) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return new int[]{1, 1};
     }
 
 }
