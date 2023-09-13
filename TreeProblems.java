@@ -73,8 +73,7 @@ public class TreeProblems {
     }
 
 
-
-//    https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
+    //    https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/
     public List<Integer> distanceK(TreeNode root, TreeNode target, int k) {
         if (root == null) return null;
         Queue<TreeNode> q = new ArrayDeque<>();
@@ -137,24 +136,24 @@ public class TreeProblems {
     }
 
 
-//    https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
+    //    https://leetcode.com/problems/maximum-level-sum-of-a-binary-tree/
     public int maxLevelSum(TreeNode root) {
-        if(root == null) return 0;
+        if (root == null) return 0;
         int ans = Integer.MIN_VALUE;
         var queue = new ArrayDeque<TreeNode>();
         queue.offer(root);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             var currSum = 0;
             var queueSize = queue.size();
-            while(queueSize-- > 0){
+            while (queueSize-- > 0) {
                 var node = queue.poll();
-                if(node.left != null)
+                if (node.left != null)
                     queue.offer(node.left);
-                if(node.right != null)
+                if (node.right != null)
                     queue.offer(node.right);
                 currSum += node.val;
             }
-            if(currSum > ans) {
+            if (currSum > ans) {
                 ans = currSum;
             }
         }
@@ -163,6 +162,22 @@ public class TreeProblems {
 
 
 
+    private int kthSmallestHelper_count = 0;
+    private int kthSmallestHelper_result = -1;
+
+    private void kthSmallestHelper(TreeNode root, int k) {
+        if (root == null) return;
+        kthSmallestHelper(root.left, k);
+        kthSmallestHelper_count++;
+        if (kthSmallestHelper_count == k) kthSmallestHelper_result = root.val;
+        kthSmallestHelper(root.right, k);
+    }
+
+    public int kthSmallest(TreeNode root, int k) {
+        var currLevel = 0;
+        kthSmallestHelper(root, k);
+        return kthSmallestHelper_result;
+    }
 
 
 }
