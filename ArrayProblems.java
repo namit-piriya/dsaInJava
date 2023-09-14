@@ -178,10 +178,9 @@ public class ArrayProblems {
 
 
     public static void main(String[] args) {
-        int[] nums = {0, 0, 1, 1, 1, 1, 2, 3, 3};
-        int n = removeDuplicates(nums);
-        System.out.println("reflected size is " + n);
-        System.out.println(Arrays.toString(nums));
+       var s = new StackProblems().simplifyPath("/../home/");
+       s =  new StackProblems().simplifyPath("//home//foo//");
+       System.out.println(s);
     }
 
     //    https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to
