@@ -231,4 +231,17 @@ public class ArrayProblems {
         return new int[]{1, 1};
     }
 
+//    https://leetcode.com/problems/remove-element
+//    [0,1,2,2,3,0,4,2], val = 2
+    public int removeElement(int[] nums, int val) {
+        int indexToStore = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if(nums[i] != val){
+                nums[indexToStore] = nums[i];
+                indexToStore++;
+            }
+        }
+        return indexToStore;
+    }
+
 }
