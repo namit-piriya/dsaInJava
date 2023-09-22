@@ -178,9 +178,9 @@ public class ArrayProblems {
 
 
     public static void main(String[] args) {
-       var s = new StackProblems().simplifyPath("/../home/");
-       s =  new StackProblems().simplifyPath("//home//foo//");
-       System.out.println(s);
+        var s = new StackProblems().simplifyPath("/../home/");
+        s = new StackProblems().simplifyPath("//home//foo//");
+        System.out.println(s);
     }
 
     //    https://leetcode.com/problems/group-the-people-given-the-group-size-they-belong-to
@@ -231,37 +231,46 @@ public class ArrayProblems {
         return new int[]{1, 1};
     }
 
-//    https://leetcode.com/problems/remove-element
+    //    https://leetcode.com/problems/remove-element
 //    [0,1,2,2,3,0,4,2], val = 2
     public int removeElement(int[] nums, int val) {
         int indexToStore = 0;
         for (int i = 0; i < nums.length; i++) {
-            if(nums[i] != val){
+            if (nums[i] != val) {
                 nums[indexToStore] = nums[i];
                 indexToStore++;
             }
         }
         return indexToStore;
     }
-//    https://leetcode.com/problems/majority-element
+
+    //    https://leetcode.com/problems/majority-element
     public int majorityElement(int[] nums) {
         int candidate = -1;
         int count = 0;
 
-        for(int n : nums){
-            if(count == 0){
+        for (int n : nums) {
+            if (count == 0) {
                 candidate = n;
             }
-
-            if(candidate == n){
+            if (candidate == n) {
                 count++;
-            }
-            else count--;
+            } else count--;
 
         }
 
         return candidate;
 
+    }
+
+    public boolean canJump(int[] nums) {
+        int reachable = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > reachable) return false;
+//            adding the current index we are at and the jump we can get from there is new reachable
+            reachable = Math.max(reachable, i + nums[i]);
+        }
+        return true;
     }
 
 }
