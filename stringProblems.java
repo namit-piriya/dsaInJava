@@ -20,4 +20,22 @@ public class stringProblems {
         return ans;
 
     }
+    public String longestCommonPrefix(String[] strs) {
+        Arrays.sort(strs);
+        var first = strs[0];
+        var last = strs[strs.length-1];
+        int minInd = Math.min(first.length(), last.length());
+
+        StringBuffer s = new StringBuffer();
+
+        for(int i =0; i < minInd; i++){
+            if(first.charAt(i) == last.charAt(i)){
+                s.append(first.charAt(i));
+            }
+            else{
+                break;
+            }
+        }
+        return s.toString();
+    }
 }
