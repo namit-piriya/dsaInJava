@@ -273,4 +273,28 @@ public class ArrayProblems {
         return true;
     }
 
+
+    //    Input: s = "the sky is blue"
+//    Output: "blue is sky the"
+    public String reverseWords(String s) {
+        Stack<String> stack = new Stack<>();
+        var strSrr = s.split(" ");
+        for (String str : strSrr) {
+            stack.push(str);
+        }
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(stack.pop());
+        while (!stack.empty()) {
+            var str = stack.pop();
+            if (!str.trim().isEmpty()) {
+                stringBuilder.append(" ");
+                stringBuilder.append(str);
+            }
+
+        }
+        // stringBuilder.setLength(stringBuilder.length() - 1);
+        return stringBuilder.toString();
+    }
+
+
 }
