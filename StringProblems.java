@@ -39,7 +39,7 @@ public class StringProblems {
         return s.toString();
     }
 
-//    https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
+    //    https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/
     public int strStr(String haystack, String needle) {
 
         if (haystack.length() < needle.length()) {
@@ -65,34 +65,53 @@ public class StringProblems {
 
     }
 
-//    https://leetcode.com/problems/valid-palindrome
+    //    https://leetcode.com/problems/valid-palindrome
     public boolean isPalindrome(String s) {
-        if(s.trim().isEmpty()){
+        if (s.trim().isEmpty()) {
             return true;
         }
         int start = 0;
-        int end = s.length()-1;
+        int end = s.length() - 1;
 
-        while(start <= end){
+        while (start <= end) {
 
-            if(!Character.isLetterOrDigit(s.charAt(start))){
+            if (!Character.isLetterOrDigit(s.charAt(start))) {
                 start++;
-            }
-            else if(!Character.isLetterOrDigit(s.charAt(end))){
+            } else if (!Character.isLetterOrDigit(s.charAt(end))) {
                 end--;
-            }
-            else {
-                if(Character.toLowerCase(s.charAt(start)) == Character.toLowerCase(s.charAt(end))){
+            } else {
+                if (Character.toLowerCase(s.charAt(start)) == Character.toLowerCase(s.charAt(end))) {
                     start++;
                     end--;
-                }
-                else {
+                } else {
                     return false;
                 }
             }
 
         }
         return true;
+    }
+
+    //    https://leetcode.com/problems/is-subsequence/
+//    Input: s = "abc", t = "ahbgdc"
+//    Output: true
+    public boolean isSubsequence(String s, String t) {
+        if (s.length() > t.length()) {
+            return false;
+        }
+        if (s.isEmpty()) return true;
+        int sPtr = 0;
+        int i = 0;
+        while (i < t.length()) {
+            if (s.charAt(sPtr) == t.charAt(i)) {
+                sPtr++;
+            }
+            if (sPtr == s.length()) return true;
+            i++;
+        }
+        return false;
+
+
     }
 
 }
