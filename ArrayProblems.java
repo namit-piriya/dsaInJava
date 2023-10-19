@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Stream;
 
 public class ArrayProblems {
     public static int[] twoSumTwoPointers(int[] nums, int target) {
@@ -296,12 +297,12 @@ public class ArrayProblems {
         return stringBuilder.toString();
     }
 
-    int square(int n){
+    int square(int n) {
         int sum = 0;
-        while(n > 0){
-            int digit = n% 10;
+        while (n > 0) {
+            int digit = n % 10;
             sum += (digit * digit);
-            n = n /10;
+            n = n / 10;
         }
         return sum;
     }
@@ -311,11 +312,24 @@ public class ArrayProblems {
         int slow = square(n);
         int fast = square(square(n));
 
-        while(slow !=fast ){
+        while (slow != fast) {
             slow = square(slow);
             fast = square(square(fast));
         }
         return slow == 1;
+    }
+
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashMap<Integer, Integer> s = new HashMap();
+        for (int i = 0; i < nums.length; i++) {
+            int currValue = s.getOrDefault(nums[i], -1);
+            if (currValue != -1 && i - currValue <= k) {
+                return true;
+            } else {
+                s.put(nums[i], i);
+            }
+        }
+        return false;
     }
 
 }
