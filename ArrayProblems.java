@@ -332,4 +332,23 @@ public class ArrayProblems {
         return false;
     }
 
+    public boolean isIsomorphic(String s, String t) {
+        var forward = new HashMap<Character, Character>();
+        var backward = new HashMap<Character, Character>();
+
+        for (int i = 0; i < s.length(); i++) {
+            var sChar = s.charAt(i);
+            var tChar = t.charAt(i);
+            if (forward.get(sChar) == null && backward.get(tChar) == null) {
+                forward.put(sChar, tChar);
+                backward.put(tChar, sChar);
+            } else if ((forward.get(sChar) == null || backward.get(tChar) == null) ||
+                    !(forward.get(sChar) == tChar && backward.get(tChar) == sChar)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
