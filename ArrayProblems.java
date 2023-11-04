@@ -363,5 +363,22 @@ public class ArrayProblems {
 
     }
 
+    public int hIndex(int[] citations) {
+        Arrays.sort(citations);
+        int ans = Integer.MIN_VALUE;
+        int skippedZero = 0;
+        int i = 0;
+        while (i < citations.length && citations[i] == 0) {
+            i++;
+            skippedZero++;
+        }
+//        2,2,5
+        for (int j = skippedZero; j < citations.length; j++) {
+            int curr = Math.min(citations[j], citations.length - j);
+            ans = Math.max(curr, ans);
+        }
+        return ans == Integer.MIN_VALUE ? 0 : ans;
+    }
+
 
 }
