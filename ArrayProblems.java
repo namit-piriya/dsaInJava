@@ -380,5 +380,25 @@ public class ArrayProblems {
         return ans == Integer.MIN_VALUE ? 0 : ans;
     }
 
+    //        gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+
+        int total = 0;
+        int temp = 0;
+        int start = 0;
+        for (int i = 0; i < gas.length; i++) {
+            int currDiff = (gas[i] - cost[i]);
+            temp = temp + currDiff;
+            total += currDiff;
+            if (temp < 0) {
+//                 if the temp is negative we can not go on and we have to start the trip after the current index.
+                start = i + 1;
+                temp = 0;
+            }
+        }
+//        there should be gas in +ve or 0
+        return total < 0 ? -1 : start;
+    }
+
 
 }
