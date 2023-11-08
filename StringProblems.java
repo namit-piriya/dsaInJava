@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class StringProblems {
     public int lengthOfLastWord(String s) {
@@ -110,8 +113,46 @@ public class StringProblems {
             i++;
         }
         return false;
+    }
+
+    public static List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> ans = new ArrayList<>();
+        int len = s.length();
+        HashMap<String, Integer> hm = new HashMap<>();
+        for (int i = 0; i < words.length; i++) {
+            hm.put(words[i], hm.getOrDefault(words[i], 0) + 1);
+        }
+        int i = 0;
+        int subStrLen = words.length * words[0].length();
+        int oneWordLen = words[0].length();
+        while (i <= len - subStrLen) {
+            int j = i;
+            boolean flag = true;
+            HashMap<String, Integer> checkHm = new HashMap<>();
+            for (int k = 0; k < subStrLen; k += oneWordLen) {
+                String sub = s.substring(j + k, j + k + oneWordLen);
+                // System.out.println("substring " + sub + ", " + j + k + " " + j + k + oneWordLen);
+                int maxCount = hm.getOrDefault(sub, 0);
+                if (maxCount == 0 || checkHm.getOrDefault(sub, 0) + 1 > maxCount) {
+                    i++;
+                    flag = false;
+                    break;
+                } else
+                    checkHm.put(sub, checkHm.getOrDefault(sub, 0) + 1);
+            }
+            if (flag) {
+                i += oneWordLen;
+                ans.add(j);
+            }
+        }
+        return ans;
 
 
     }
 
+    public static void main(String[] args) {
+        findSubstring("adfaswordgoodgoodwordgoodbestword", new String[]{"word", "good", "best", "word"});
+    }
+
 }
+
