@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class StringProblems {
     public int lengthOfLastWord(String s) {
@@ -149,6 +148,40 @@ public class StringProblems {
 
 
     }
+
+
+    /*
+        Given a pattern and a string s, find if s follows the same pattern.
+        Here follow means a full match, such that there is a bijection between a letter in
+        pattern and a non-empty word in s.
+        Example 1:
+        Input: pattern = "abba", s = "dog cat cat dog"
+        Output: true
+    * */
+    public boolean wordPattern(String pattern, String s) {
+        Map<String, Character> charMap = new HashMap<>();
+        Map<Character, String> revCharMap = new HashMap<>();
+        String[] allStrings = s.split(" ");
+        if(pattern.length() != allStrings.length ){
+            return false;
+        }
+        AtomicInteger i = new AtomicInteger();
+        AtomicBoolean ans = new AtomicBoolean(true);
+        Arrays.stream(allStrings).forEach(currStr -> {
+            Character curr = charMap.get(currStr);
+            char currChar = pattern.charAt(i.getAndIncrement());
+            String currString = revCharMap.get(currChar);
+            if (curr == null && revCharMap.get(currChar) == null) {
+                charMap.put(currStr,currChar);
+                revCharMap.put(currChar,currStr);
+            }
+            else if(!currStr.equals(currString) || !revCharMap.get(currChar).equals(currStr)){
+                ans.set(false);
+            }
+        });
+        return ans.get();
+    }
+
 
     public static void main(String[] args) {
         findSubstring("adfaswordgoodgoodwordgoodbestword", new String[]{"word", "good", "best", "word"});
