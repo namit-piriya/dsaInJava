@@ -350,7 +350,7 @@ public class ArrayProblems {
         return true;
     }
 
-    public int removeDuplicates(int[] nums) {
+    public int removeDuplicates1(int[] nums) {
         if (nums.length == 1) return 1;
         int ptr = 1;
         for (int i = 1; i < nums.length; i++) {
@@ -399,6 +399,8 @@ public class ArrayProblems {
 //        there should be gas in +ve or 0
         return total < 0 ? -1 : start;
     }
+
+
 
 
 }
