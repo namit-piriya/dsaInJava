@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class MatrixProblems {
@@ -57,6 +58,53 @@ public class MatrixProblems {
     }
 
 
+    /*Given an m x n matrix, return all elements of the matrix in spiral order.
+    *  Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
+        Output: [1,2,3,6,9,8,7,4,5]
+    * */
+    public  List<Integer> spiralOrder(int[][] matrix) {
+
+        int i = 0;
+        int j = matrix[0].length - 1;
+        int k = matrix.length - 1;
+        int l = 0;
+
+        List<Integer> ans = new ArrayList<>();
+        while(i <= k && l <= j){
+//             left to right
+            for(int counter = l; counter <= j ; counter++){
+                ans.add(matrix[i][counter]);
+            }
+            i++;
+
+//                 right to bottom
+            for(int counter = i; counter <= k ; counter++){
+                ans.add(matrix[counter][j]);
+            }
+            j--;
+//            right to left
+            if( i <= k){
+//                i crosses k that's why the check and prints two times.
+                for(int counter = j; counter >= l ; counter--){
+                    ans.add(matrix[k][counter]);
+                }
+                k--;
+            }
+
+//           bottom to top
+            if(j >= l){
+                for(int counter = k; counter >= i ; counter--){
+                    ans.add(matrix[counter][l]);
+                }
+                l++;
+            }
+
+        }
+        return ans;
+
+    }
+
+
     public static void main(String[] args) {
         char[][] board = {
                 {'8', '3', '.', '.', '7', '.', '.', '.', '.'}
@@ -70,5 +118,6 @@ public class MatrixProblems {
                 , {'.', '.', '.', '.', '8', '.', '.', '7', '9'}};
         System.out.println(isValidSudoku(board));
     }
+
 
 }
