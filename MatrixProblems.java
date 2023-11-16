@@ -62,7 +62,7 @@ public class MatrixProblems {
     *  Input: matrix = [[1,2,3],[4,5,6],[7,8,9]]
         Output: [1,2,3,6,9,8,7,4,5]
     * */
-    public  List<Integer> spiralOrder(int[][] matrix) {
+    public List<Integer> spiralOrder(int[][] matrix) {
 
         int i = 0;
         int j = matrix[0].length - 1;
@@ -70,30 +70,30 @@ public class MatrixProblems {
         int l = 0;
 
         List<Integer> ans = new ArrayList<>();
-        while(i <= k && l <= j){
+        while (i <= k && l <= j) {
 //             left to right
-            for(int counter = l; counter <= j ; counter++){
+            for (int counter = l; counter <= j; counter++) {
                 ans.add(matrix[i][counter]);
             }
             i++;
 
 //                 right to bottom
-            for(int counter = i; counter <= k ; counter++){
+            for (int counter = i; counter <= k; counter++) {
                 ans.add(matrix[counter][j]);
             }
             j--;
 //            right to left
-            if( i <= k){
+            if (i <= k) {
 //                i crosses k that's why the check and prints two times.
-                for(int counter = j; counter >= l ; counter--){
+                for (int counter = j; counter >= l; counter--) {
                     ans.add(matrix[k][counter]);
                 }
                 k--;
             }
 
 //           bottom to top
-            if(j >= l){
-                for(int counter = k; counter >= i ; counter--){
+            if (j >= l) {
+                for (int counter = k; counter >= i; counter--) {
                     ans.add(matrix[counter][l]);
                 }
                 l++;
@@ -101,6 +101,53 @@ public class MatrixProblems {
 
         }
         return ans;
+
+    }
+
+
+    public void setZeroes(int[][] matrix) {
+        boolean rowZero = false;
+        boolean colZero = false;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                int currValue = matrix[i][j];
+                if (currValue == 0) {
+                    rowZero = i == 0;
+                    colZero = j == 0;
+                    matrix[0][j] = 0;
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+
+//         column zero
+        for (int i = 1; i < matrix[0].length; i++) {
+            if (matrix[0][i] == 0) {
+                for (int j = 1; j < matrix.length; j++) {
+                    matrix[j][i] = 0;
+                }
+            }
+        }
+//        row zero;
+        for (int i = 1; i < matrix.length; i++) {
+            if (matrix[i][0] == 0) {
+                for (int j = 1; j < matrix[0].length; j++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        if (rowZero) {
+            for (int i = 0; i < matrix[0].length; i++) {
+                matrix[0][i] = 0;
+            }
+        }
+        if (colZero) {
+            for (int i = 0; i < matrix[0].length; i++) {
+                matrix[i][0] = 0;
+            }
+        }
+
 
     }
 
