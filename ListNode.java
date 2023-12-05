@@ -58,7 +58,7 @@ public class ListNode {
         if (head == null || head.next == null) {
             return head;
         }
-// 1-2-3-4-5
+        // 1-2-3-4-5
         // Reverse the rest of the list recursively
         ListNode reversedList = reverseList(head.next);
 
@@ -68,6 +68,36 @@ public class ListNode {
 
         return reversedList;
     }
+
+
+//    https://leetcode.com/problems/linked-list-cycle-ii/
+    public ListNode detectCycle(ListNode head) {
+        if (head == null) return head;
+        ListNode ans;
+        ListNode slow = head;
+        ListNode fast = head;
+        boolean cycle;
+        while (slow != null && fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if (slow == fast) {
+                cycle = true;
+                break;
+            }
+        }
+        if(cycle){
+//            from the linked list start and the point where slow and fast meet
+//            the intersection point is at the same distance
+            ListNode curr = head;
+            while(curr != slow){
+                curr = curr.next;
+                slow = slow.next;
+            }
+            ans = curr;
+        }
+        return ans;
+    }
+
 
 }
 
