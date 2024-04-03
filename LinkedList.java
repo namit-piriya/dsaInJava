@@ -17,7 +17,7 @@ public class LinkedList {
         return reversedList;
     }
 
-    public ListNode partition(ListNode head, int x) {
+    public ListNode partitionTest(ListNode head, int x) {
         ListNode dummy = new ListNode(-10, head);
         ListNode temp = head;
         for (int i = 0; i < x; i++) {
@@ -32,11 +32,10 @@ public class LinkedList {
                 curr.next = curr.next.next;
                 curr.next.next = neighbor;
             }
-            curr = curr.next;
+            else curr = curr.next;
         }
-
         ListNode prev = curr;
-
+//        1-> 2 -> 3 -> 4 -> 5
         while (curr.next != null){
             ListNode next = curr.next;
             if(next.val < val){
@@ -50,4 +49,29 @@ public class LinkedList {
         return dummy.next;
     }
 
+    public ListNode partition(ListNode head, int x) {
+        ListNode left = new ListNode(-10);
+        ListNode start = left;
+        ListNode right = new ListNode(-10);
+        ListNode rightStart = right;
+        ListNode curr = head;
+        while(curr != null){
+            if(curr.val < x){
+                left.next = curr;
+                left = left.next;
+            }
+            else {
+
+                right.next = curr;
+                right = right.next;
+            }
+            curr = curr.next;
+        }
+        if(start.next == null) return rightStart.next;
+        System.out.println("Hello");
+        left.next = rightStart.next;
+        right.next = null;
+        head = start.next;
+        return head;
+    }
 }
