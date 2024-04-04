@@ -1,5 +1,5 @@
 import java.util.*;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 public class ArrayProblems {
     public static int[] twoSumTwoPointers(int[] nums, int target) {
@@ -400,7 +400,35 @@ public class ArrayProblems {
         return total < 0 ? -1 : start;
     }
 
+//    https://leetcode.com/problems/3sum
 
+    private List<List<Integer>> twoSumTwoPtr(int[] nums, int index, int target){
+        int i = index;
+        List<List<Integer>> currList = new ArrayList<>();
+        int j = nums.length - 1;
+        while( i < j){
+            int sum = nums[i] + nums[j];
+            if(sum == target){
+                currList.add(Arrays.asList(nums[i],nums[j],nums[index-1]));
+                while( i < j && nums[i] == nums[i+1]){ i++;}
+                while( i < j && nums[j] == nums[j-1]){ j--;}
+            }
+            else if(sum < target){
+                i++;
+            }
+            else j--;
+        }
+        return currList;
+    }
 
-
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> answer = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int i = 0; i < nums.length; i++) {
+            int target = -nums[i];
+            var result = twoSumTwoPtr(nums,i+1,target);
+            answer.addAll(result);
+        }
+        return answer.stream().distinct().collect(Collectors.toList());
+    }
 }
