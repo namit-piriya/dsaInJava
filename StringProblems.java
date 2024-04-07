@@ -3,15 +3,23 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class StringProblems {
-    public int lengthOfLastWord(String s) {
+//    https://leetcode.com/problems/length-of-last-word/description/
+
+    /**
+     * Given a string s consisting of words and spaces, return the length of the last word in the string.
+     * A word is a maximal
+     * substring
+     * consisting of non-space characters only.
+     */
 //        "   fly me   to   the moon  "
+    public int lengthOfLastWord(String s) {
         int len = s.length() - 1;
         int counter = len;
         int ans = 0;
+//        Go to the last char from back
         while (s.charAt(counter) == ' ' && counter >= 0) {
             counter--;
         }
-
         while (counter >= 0) {
             if (s.charAt(counter) == ' ') {
                 break;
@@ -20,7 +28,6 @@ public class StringProblems {
             counter--;
         }
         return ans;
-
     }
 
     public String longestCommonPrefix(String[] strs) {
@@ -76,7 +83,7 @@ public class StringProblems {
         int end = s.length() - 1;
 
         while (start <= end) {
-
+// skip the letter or digits
             if (!Character.isLetterOrDigit(s.charAt(start))) {
                 start++;
             } else if (!Character.isLetterOrDigit(s.charAt(end))) {
@@ -162,7 +169,7 @@ public class StringProblems {
         Map<String, Character> charMap = new HashMap<>();
         Map<Character, String> revCharMap = new HashMap<>();
         String[] allStrings = s.split(" ");
-        if(pattern.length() != allStrings.length ){
+        if (pattern.length() != allStrings.length) {
             return false;
         }
         AtomicInteger i = new AtomicInteger();
@@ -172,10 +179,9 @@ public class StringProblems {
             char currChar = pattern.charAt(i.getAndIncrement());
             String currString = revCharMap.get(currChar);
             if (curr == null && revCharMap.get(currChar) == null) {
-                charMap.put(currStr,currChar);
-                revCharMap.put(currChar,currStr);
-            }
-            else if(!currStr.equals(currString) || !revCharMap.get(currChar).equals(currStr)){
+                charMap.put(currStr, currChar);
+                revCharMap.put(currChar, currStr);
+            } else if (!currStr.equals(currString) || !revCharMap.get(currChar).equals(currStr)) {
                 ans.set(false);
             }
         });
@@ -186,6 +192,28 @@ public class StringProblems {
     public static void main(String[] args) {
         findSubstring("adfaswordgoodgoodwordgoodbestword", new String[]{"word", "good", "best", "word"});
     }
+
+//    https://leetcode.com/problems/word-break/
+    public boolean wordBreak(String s, List<String> wordDict) {
+        boolean[] flags = new boolean[s.length() + 1];
+        flags[0] = true;
+        for (int i = 0; i < s.length(); i++) {
+            for (String a : wordDict) {
+                int len = a.length();
+                if(i + len <= s.length()){
+                    String sub = s.substring(i,i+len);
+                    // System.out.println("Sub is "+sub);
+                    if(sub.equals(a)) {
+                        flags[i + len] = flags[i + len] ||  flags[i];
+                    }
+                }
+
+            }
+//            printArray(flags);
+        }
+        return flags[s.length()];
+    }
+
 
 }
 
