@@ -31,20 +31,18 @@ public class LinkedList {
                 temp.next = curr.next;
                 curr.next = curr.next.next;
                 curr.next.next = neighbor;
-            }
-            else curr = curr.next;
+            } else curr = curr.next;
         }
         ListNode prev = curr;
 //        1-> 2 -> 3 -> 4 -> 5
-        while (curr.next != null){
+        while (curr.next != null) {
             ListNode next = curr.next;
-            if(next.val < val){
+            if (next.val < val) {
                 ListNode neighbor = prev.next;
                 prev.next = next;
                 curr.next = next.next;
                 next.next = neighbor;
-            }
-            else  curr = curr.next;
+            } else curr = curr.next;
         }
         return dummy.next;
     }
@@ -55,23 +53,52 @@ public class LinkedList {
         ListNode right = new ListNode(-10);
         ListNode rightStart = right;
         ListNode curr = head;
-        while(curr != null){
-            if(curr.val < x){
+        while (curr != null) {
+            if (curr.val < x) {
                 left.next = curr;
                 left = left.next;
-            }
-            else {
+            } else {
 
                 right.next = curr;
                 right = right.next;
             }
             curr = curr.next;
         }
-        if(start.next == null) return rightStart.next;
+        if (start.next == null) return rightStart.next;
         System.out.println("Hello");
         left.next = rightStart.next;
         right.next = null;
         head = start.next;
         return head;
     }
+
+    //https://leetcode.com/problems/remove-nodes-from-linked-list/?envType=daily-question&envId=2024-05-06
+    public ListNode removeNodes(ListNode head) {
+
+        if (head == null || head.next == null) {
+            return head;
+        }
+
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode next;
+        while (curr != null) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        curr = prev.next;
+        prev.next = null;
+        while (curr != null) {
+            next = curr.next;
+            if (curr.val >= prev.val) {
+                curr.next = prev;
+                prev = curr;
+            }
+            curr = next;
+        }
+        return prev;
+    }
+
 }
