@@ -101,4 +101,34 @@ public class LinkedList {
         return prev;
     }
 
+
+
+
+//https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/?envType=study-plan-v2&envId=top-interview-150
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(-1, head);
+        curr = dummy;
+        while (curr != null) {
+            ListNode next = curr.next;
+            if(next == null){
+                return dummy.next;
+            }
+            int val = next.val;
+            boolean check = false;
+            while(next.next != null && next.next.val == val){
+                next = next.next;
+                check =true;
+            }
+            if(check){
+                 curr.next = next.next;
+            }else {
+             curr = next;
+            }
+        }
+        return dummy.next;
+    }
+/*
+1-> 2 -> 3 -> 4-> 4-> 5
+ */
+
 }
