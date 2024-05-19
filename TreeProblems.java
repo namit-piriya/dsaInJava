@@ -161,7 +161,6 @@ public class TreeProblems {
     }
 
 
-
     private int kthSmallestHelper_count = 0;
     private int kthSmallestHelper_result = -1;
 
@@ -179,5 +178,38 @@ public class TreeProblems {
         return kthSmallestHelper_result;
     }
 
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        return helper(inorder, postorder, postorder.length - 1, 0, inorder.length - 1);
+    }
 
+    private TreeNode helper(int[] inorder, int[] postorder, int postStart, int inStart, int inEnd) {
+        int i = inStart;
+       if(postStart <0 )return null;
+       TreeNode root = new TreeNode(postStart);
+       if(inStart == inEnd){
+           return root;
+       }
+       for (; i <= inEnd; i++) {
+            if (postorder[postStart] == inorder[i]) break;
+        }
+        int rightSize = inEnd - i;
+        root.left = helper(inorder, postorder, postStart-1-rightSize, inStart, i - 1);
+        root.right = helper(inorder, postorder, postStart-1, i + 1, inEnd);
+        return root;
+    }
+//https://leetcode.com/problems/sum-root-to-leaf-numbers
+    public int sumNumbers(TreeNode root) {
+        return sumHelper(root,0,0);
+    }
+
+    private int sumHelper(TreeNode root, int i, double val) {
+        if(root == null){
+            return 0;
+        }
+        double currSum = val * 10 + root.val;
+        if (root.left == null && root.right == null) {
+            return (int) currSum;
+        };
+        return sumHelper(root.left,i+1, currSum) + sumHelper(root.right,i+1, currSum);
+    }
 }
