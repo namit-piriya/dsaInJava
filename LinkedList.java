@@ -102,12 +102,14 @@ public class LinkedList {
     }
 
 
-
-
+    /*
+    1-> 2 -> 3 -> 4-> 4-> 5
+    1->2 -> 3-> 5
+     */
 //https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/?envType=study-plan-v2&envId=top-interview-150
     public ListNode deleteDuplicates(ListNode head) {
         ListNode dummy = new ListNode(-1, head);
-        curr = dummy;
+        ListNode curr = dummy;
         while (curr != null) {
             ListNode next = curr.next;
             if(next == null){
@@ -120,15 +122,40 @@ public class LinkedList {
                 check =true;
             }
             if(check){
-                 curr.next = next.next;
+                curr.next = next.next;
             }else {
-             curr = next;
+                curr = next;
             }
         }
         return dummy.next;
     }
-/*
-1-> 2 -> 3 -> 4-> 4-> 5
- */
 
+
+    /*
+    Given the head of a singly linked list and two integers left and right where left <= right,
+    reverse the nodes of the list from position left to position right, and return the reversed list.
+    * https://leetcode.com/problems/reverse-linked-list-ii/description/?envType=study-plan-v2&envId=top-interview-150
+    * */
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        ListNode dumm = new ListNode(-1, head);
+        int i = 0;
+        ListNode curr = dumm;
+        while (i < left - 1) {
+            curr = curr.next;
+            i++;
+        }
+        ListNode prevStart = curr;
+        ListNode prev = null;
+        ListNode next = null;
+        ListNode start = curr.next;
+        for (int j = i; j <= right; j++) {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        prevStart.next = prev;
+        start.next = curr;
+        return dumm.next;
+    }
 }
